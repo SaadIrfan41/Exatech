@@ -96,6 +96,28 @@ uv add sqlmodel psycopg2-binary
 
 Create a new file: `app/database.py`
 
+> [!IMPORTANT]
+> **Working with folders & packages (`__init__.py`):**
+> Whenever you organize your code inside folders (e.g., `app/`, or subfolders like `app/config/`), **always include an `__init__.py` file** (it can be completely empty) in every directory:
+>
+> ```text
+> fastapi_basics/
+> ├── app/
+> │   ├── __init__.py         <-- Marks 'app' as a package
+> │   ├── main.py
+> │   ├── database.py
+> │   └── config/             <-- If using nested subfolders
+> │       ├── __init__.py     <-- Marks 'app.config' as a package
+> │       └── db.py
+> ├── .env
+> └── pyproject.toml
+> ```
+>
+> **Why is this necessary?**
+> 1. **Package Recognition:** It tells Python that the directory is a package, enabling absolute imports like `from app.database import ...` or `from app.config.db import ...`.
+> 2. **FastAPI CLI Project Root Detection:** When you run `uv run fastapi dev app/main.py`, FastAPI CLI inspects the directory tree for `__init__.py` to find the project root. Without it, you will see `Import error: No module named 'app'`.
+> 3. **Avoids IDE Import Errors:** Prevents VS Code / Pyright from showing `Cannot find module ...` warnings.
+
 ```python
 from sqlmodel import SQLModel, Field
 
@@ -130,7 +152,7 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_recycle=300)
 ```
 
 | Line | Meaning |
@@ -138,6 +160,8 @@ engine = create_engine(DATABASE_URL)
 | `load_dotenv()` | Reads the `.env` file and makes its values available |
 | `os.getenv("DATABASE_URL")` | Pulls the connection string out of the environment, instead of hardcoding it |
 | `engine` | The actual connection to your Neon database |
+| `pool_pre_ping=True` | Checks if the connection is alive before using it; reconnects automatically if Neon goes to sleep |
+| `pool_recycle=300` | Recycles idle connections after 5 minutes to prevent stale SSL timeouts |
 
 Notice we don't need `connect_args={"check_same_thread": False}` anymore — that was an SQLite-only quirk. Postgres doesn't need it.
 
@@ -757,3 +781,4 @@ Cloud deployment with Terraform
 | **401 Unauthorized** | Status code meaning "you didn't prove who you are" |
 | **Image** | A packaged snapshot of your app + everything it needs to run |
 | **Container** | A running instance of an image |
+| **`__init__.py`** | An initialization file placed inside a folder to mark it as a Python package so imports and tools like `fastapi-cli` work smoothly |

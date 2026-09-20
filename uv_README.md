@@ -49,13 +49,13 @@ uv python list
 Create a new Python project:
 
 ```powershell
-uv init projectName
+uv init projectName --no-package
 ```
 
 For example:
 
 ```powershell
-uv init my-project
+uv init my-project --no-package
 ```
 
 Then move into the project directory:
