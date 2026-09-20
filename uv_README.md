@@ -1,6 +1,6 @@
 # UV — Python Setup on Windows
 
-This guide explains how to install **UV** on Windows, install Python using UV, create a Python project, and manage a virtual environment.
+This guide explains how to install **UV** on Windows, install Python using UV, create a Python project, and run your project with automatic virtual environment management.
 
 ## 1. Install UV
 
@@ -66,92 +66,42 @@ cd my-project
 
 ---
 
-## 6. Create a Virtual Environment
+## 6. Run Your Project (Automatic Virtual Environment)
 
-Create a virtual environment using Python 3.12:
+With UV, you **do not need to manually create or activate a virtual environment**. UV automatically creates and manages the `.venv` directory for you whenever you run commands or add dependencies.
+
+Run your script:
 
 ```powershell
-uv venv --python 3.12
+uv run main.py
 ```
 
-This creates a `.venv` directory inside your project.
+Add dependencies (UV automatically creates/updates `.venv` and installs packages):
 
-Your project will look something like:
+```powershell
+uv add <package-name>
+```
+
+Your project directory will look something like:
 
 ```text
 my-project/
-├── .venv/
+├── .venv/            # Managed automatically by UV
 ├── main.py
 ├── pyproject.toml
-└── README.md
-```
-
----
-
-## 7. Activate the Virtual Environment
-
-In PowerShell:
-
-```powershell
-.venv\Scripts\activate
-```
-
-After activation, your terminal should show the virtual environment name, for example:
-
-```text
-(.venv) PS C:\Projects\my-project>
-```
-
-You are now working inside the virtual environment.
-
----
-
-## 8. PowerShell Execution Policy Error
-
-If you get an error such as:
-
-```text
-cannot be loaded because running scripts is disabled on this system
-```
-
-PowerShell's execution policy is blocking the virtual environment activation script.
-
-You can allow scripts **only for the current PowerShell session** by running:
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
-```
-
-Then activate the environment again:
-
-```powershell
-.venv\Scripts\activate
-```
-
-> **Note:** Using `-Scope Process` means the change only applies to the current PowerShell window. Closing the terminal will remove the change.
-
----
-
-## 9. Deactivate the Virtual Environment
-
-When you are finished working in the virtual environment:
-
-```powershell
-deactivate
+└── uv.lock
 ```
 
 ---
 
 ## Quick Reference
 
-| Task                       | Command                                                                               |
-| -------------------------- | ------------------------------------------------------------------------------------- |
-| Install UV                 | `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"` |
-| Check UV                   | `uv --version`                                                                        |
-| Install Python             | `uv python install 3.12`                                                              |
-| List Python versions       | `uv python list`                                                                      |
-| Initialize project         | `uv init projectName`                                                                 |
-| Create virtual environment | `uv venv --python 3.12`                                                               |
-| Activate environment       | `.venv\Scripts\activate`                                                              |
-| Fix PowerShell policy      | `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`                    |
-| Deactivate environment     | `deactivate`                                                                          |
+| Task                 | Command                                                                               |
+| -------------------- | ------------------------------------------------------------------------------------- |
+| Install UV           | `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 \| iex"` |
+| Check UV             | `uv --version`                                                                        |
+| Install Python       | `uv python install 3.12`                                                              |
+| List Python versions | `uv python list`                                                                      |
+| Initialize project   | `uv init projectName --no-package`                                                    |
+| Run script           | `uv run main.py`                                                                      |
+| Add package          | `uv add <package>`                                                                    |
