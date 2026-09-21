@@ -20,12 +20,17 @@ def get_todos(session: Session = Depends(get_session)):
     return session.exec(select(Todo)).all()
 
 
+
+
+
 @app.get("/todos/{todo_id}")
 def get_todo(todo_id: int, session: Session = Depends(get_session)):
     todo = session.get(Todo, todo_id)
     if todo:
         return todo
     return {"message": "Todo not found"}
+
+
 
 @app.post("/todos")
 def create_todo(todo: Todo, session: Session = Depends(get_session)):
