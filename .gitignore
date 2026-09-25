@@ -1,25 +1,87 @@
-# Environment files
+# ==========================================
+# Environment files & Secrets
+# ==========================================
 .env
 *.env
 .env.*
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env
+**/*.env
+**/.env.*
 !.env.example
+!**/.env.example
 
+# ==========================================
+# Python Virtual Environments
+# ==========================================
+.venv
+.venv/
+**/.venv/
+env/
+**/env/
+venv/
+**/venv/
+ENV/
+**/ENV/
+env.bak/
+venv.bak/
 
-# Python bytecode & cache
+# ==========================================
+# Python Bytecode & Cache
+# ==========================================
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 *.pyc
+*.pyo
+*.pyd
 
-# Virtual environments
-.venv/
-env/
-venv/
-ENV/
+# ==========================================
+# Packaging & Builds
+# ==========================================
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# IDE / Editor / Tooling
+# ==========================================
+# Testing & Code Quality
+# ==========================================
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# ==========================================
+# IDEs & Editors
+# ==========================================
 .vscode/
 .idea/
-.ruff_cache/
-.pytest_cache/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Operating System
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
