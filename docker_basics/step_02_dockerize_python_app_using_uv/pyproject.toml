@@ -1,0 +1,9 @@
+[project]
+name = "step-02-dockerize-python-app-using-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "cowsay>=6.1",
+]
