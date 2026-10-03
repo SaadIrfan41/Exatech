@@ -2,7 +2,8 @@
 # We use the "slim" version because it's smaller than the default one.
 FROM python:3.12-slim
 
-# creates a directory named app inside the container and sets it as the working directory for subsequent commands (like CMD).
+# creates a directory named app inside the container and sets it as the working directory 
+# for subsequent commands (like CMD).
 WORKDIR /app
 
 # Copy the Python code from my host (where Dockerfile is) to the /app directory inside the container

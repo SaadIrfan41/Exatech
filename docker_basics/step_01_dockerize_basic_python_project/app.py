@@ -1,1 +1,1 @@
-print("Hello World")
+print("Hello from inside the Docker container!")
