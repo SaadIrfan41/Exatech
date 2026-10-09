@@ -1,0 +1,30 @@
+# Secrets & Environment variables (NEVER bake secrets into images!)
+.env
+.env*
+*.env
+.env.local
+
+# Virtual environments (host venv should not enter Linux containers)
+.venv
+.venv/
+env/
+venv/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# Git and project docs
+.git
+.gitignore
+README.md
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

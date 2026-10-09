@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    # Bind mount: maps host ./app directly into container /app/app for instant code updates
+    volumes:
+      - ./app:/app/app
+    # Overrides Dockerfile CMD with dev mode + auto-reload + binding on all interfaces
+    command: uv run fastapi dev app/main.py --host 0.0.0.0
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
