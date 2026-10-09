@@ -6,13 +6,10 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-
-
 RUN uv sync --frozen --no-install-project
 
-COPY . .
+COPY ./app ./app
 
 EXPOSE 8000
 
-# CMD ["uv", "run", "fastapi", "run", "main.py"]
-ENTRYPOINT ["uv", "run", "fastapi", "run", "main.py"]
+CMD ["uv", "run", "fastapi", "run", "app/main.py"]
