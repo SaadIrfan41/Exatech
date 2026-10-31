@@ -1,0 +1,18 @@
+#!/bin/bash
+cd /root
+
+yum install -y httpd php php-fpm php-mysql
+
+systemctl start httpd.service
+systemctl start php-fpm.service
+systemctl enable httpd.service
+systemctl enable php-fpm.service
+
+wget https://edu-res.hc-cdn.cn/sharedata/hdinnovation/sandbox/Discuzenglish.zip
+unzip Discuzenglish.zip
+
+# Updated path to match where unzip actually placed the files
+mv /root/root/Discuz/* /var/www/html/
+
+chmod -R 777 /var/www/html
+systemctl restart httpd
